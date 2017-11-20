@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ImageCollection} from '../_models/collection';
 
 @Component({
   selector: 'app-create-collection',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateCollectionComponent implements OnInit {
 
-  constructor() { }
+  public imageCollection: ImageCollection;
+
+  constructor() {
+  }
 
   ngOnInit() {
+    this.imageCollection = new ImageCollection(0, '', '' );
   }
 
 }

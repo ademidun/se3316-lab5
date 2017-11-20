@@ -9,11 +9,13 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {LoginComponent} from './login/login.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import { CollectionsListComponent } from './collections-list/collections-list.component';
-import { CollectionDetailComponent } from './collection-detail/collection-detail.component';
-import { CreateCollectionComponent } from './create-collection/create-collection.component';
-import { NasaCollectionComponent } from './nasa-collection/nasa-collection.component';
-import { MyCollectionsComponent } from './my-collections/my-collections.component';
+import {CollectionsListComponent} from './collections-list/collections-list.component';
+import {CollectionDetailComponent} from './collection-detail/collection-detail.component';
+import {CreateCollectionComponent} from './create-collection/create-collection.component';
+import {NasaCollectionComponent} from './nasa-collection/nasa-collection.component';
+import {MyCollectionsComponent} from './my-collections/my-collections.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -28,10 +30,12 @@ import { MyCollectionsComponent } from './my-collections/my-collections.componen
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

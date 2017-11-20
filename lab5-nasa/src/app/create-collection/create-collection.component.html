@@ -1,3 +1,22 @@
-<p>
-  create-collection works!
-</p>
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class=" card row">
+        <div class="col-sm-12 col-md-8 offset-md-2">
+          <h1 *ngIf="!imageCollection.title">Create a collection</h1>
+          <h1 *ngIf="imageCollection.title">{{imageCollection.title}}</h1>
+
+          <mat-form-field class="col s12">
+              <input matInput class="browser-default" id="title" type="text" ngControl="username"
+                required [(ngModel)]="imageCollection.title" name="title" placeholder="Collection Title">
+          </mat-form-field>
+
+          <mat-form-field class="col s12">
+            <input matInput class="browser-default" id="description" type="text" ngControl="description"
+                   required [(ngModel)]="imageCollection.description" name="description" placeholder="Collection Description">
+          </mat-form-field>
+          {{imageCollection.private_view}}
+          <mat-checkbox [(ngModel)]="imageCollection.private_view" name="private_view">Private View?</mat-checkbox>
+          <button mat-button class="left" matDialogClose>Create Collection</button>
+
+        </div>
+    </div>
+</div>
