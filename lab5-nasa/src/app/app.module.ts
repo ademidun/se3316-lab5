@@ -15,8 +15,10 @@ import {CreateCollectionComponent} from './create-collection/create-collection.c
 import {NasaCollectionComponent} from './nasa-collection/nasa-collection.component';
 import {MyCollectionsComponent} from './my-collections/my-collections.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CollectionService } from './_services/collection.service';
+import {HttpClientModule} from '@angular/common/http';
+import { CollectionCardComponent } from './collection-card/collection-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     CollectionDetailComponent,
     CreateCollectionComponent,
     NasaCollectionComponent,
-    MyCollectionsComponent
+    MyCollectionsComponent,
+    CollectionCardComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +38,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CollectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

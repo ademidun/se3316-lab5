@@ -1,3 +1,27 @@
-<p>
-  nasa-collection works!
-</p>
+
+<div class="container">
+
+  <div class="row" >
+      <h4 class="card-title" style="text-align: center"> Browse Nasa Collections</h4>
+  </div>
+
+  <div class="row" >
+    <mat-form-field class="col col-sm-8">
+      <input matInput class="browser-default" id="search" type="text" (keyup.enter)="sendQuery()"
+             [(ngModel)]="searchTerm" name="search" placeholder='Search for ... (e.g. "Mars")'>
+    </mat-form-field>
+    <button mat-button (click)="sendQuery()" style="margin: 1%" class="btn-primary left col s8" >Search</button>
+
+  </div>
+
+  <div class="row" >
+    <div class="card col-12 col-lg-3" style="margin: 1%" *ngFor="let nasaImage of nasaImages" >
+      <h4 class="card-title">{{nasaImage.title}}</h4>
+      <img class="card-img-top" [src]="nasaImage.href" alt="Card image cap">
+      <div class="card-block">
+        <p class="card-text">{{nasaImage.description}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
