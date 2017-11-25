@@ -38,7 +38,7 @@ function authenticate(email, password) {
       deferred.resolve();
     }
   });
-
+  console.log('deferred', deferred);
   return deferred.promise;
 }
 

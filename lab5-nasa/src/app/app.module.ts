@@ -16,14 +16,16 @@ import {NasaCollectionComponent} from './nasa-collection/nasa-collection.compone
 import {MyCollectionsComponent} from './my-collections/my-collections.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { CollectionService } from './_services/collection.service';
+import {CollectionService} from './_services/collection.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { CollectionCardComponent } from './collection-card/collection-card.component';
-import { AuthGuardGuard } from './_guards/auth-guard.guard';
+import {CollectionCardComponent} from './collection-card/collection-card.component';
+import {AuthGuardGuard} from './_guards/auth-guard.guard';
 import {TokenInterceptor} from './_services/token.interceptor';
-import { NavbarComponent } from './navbar/navbar.component';
+import {NavbarComponent} from './navbar/navbar.component';
 import {AuthService} from './_services/auth.service';
-import { RegisterComponent } from './register/register.component';
+import {RegisterComponent} from './register/register.component';
+import {MatExpansionModule, MatIconModule, MatSnackBarModule} from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,10 @@ import { RegisterComponent } from './register/register.component';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatExpansionModule
   ],
   providers: [CollectionService,
     AuthGuardGuard,

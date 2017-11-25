@@ -18,7 +18,8 @@ function authenticate(req, res) {
     .then(function (user) {
       if (user) {
         // authentication successful
-        res.send(user);
+        console.log('users.js, succesuful authenticate,',user);
+        res.status(200).send(user);
       } else {
         // authentication failed
         res.status(400).send('email or password is incorrect');

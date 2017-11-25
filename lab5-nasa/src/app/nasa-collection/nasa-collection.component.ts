@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NasaImage} from '../_models/nasa-image';
 import {CollectionService} from '../_services/collection.service';
+import {ImageCollection} from '../_models/collection';
+import {MatCheckbox} from '@angular/material';
 
 @Component({
   selector: 'app-nasa-collection',
@@ -10,10 +12,17 @@ import {CollectionService} from '../_services/collection.service';
 export class NasaCollectionComponent implements OnInit {
 
   nasaImages: NasaImage[];
+  userCollections: ImageCollection[];
   searchTerm: string;
 
   constructor(public collectionService: CollectionService) {
-    this.nasaImages = new Array<NasaImage>();
+    this.nasaImages = [];
+    // TODO make this into a service
+    this.userCollections = [];
+    for (let i = 0; i < 5; i++) {
+      const userCollection = new ImageCollection(1, i + 'Title', i + 'Description');
+      this.userCollections.push(userCollection);
+    }
   }
 
   ngOnInit() {
@@ -36,6 +45,23 @@ export class NasaCollectionComponent implements OnInit {
 
           });
         });
-      this.searchTerm = '';
+    this.searchTerm = '';
+  }
+
+  addCollection(nasaImage: NasaImage, index?: number, checkBoxEl?: MatCheckbox) {
+    // TODO, check for duplicate collections and match selection with element
+
+    console.log('addCollection nasaImage', nasaImage, index, checkBoxEl.checked, this.userCollections[index].images.includes(nasaImage.href));
+
+    if (!checkBoxEl.checked && !this.userCollections[index].images.includes(nasaImage.href)) {
+      this.userCollections[index].images.push(nasaImage.href);
+    }
+
+    if (checkBoxEl.checked) {
+      const findIndex = this.userCollections[index].images.indexOf(nasaImage.href);
+      this.userCollections[index].images.splice(findIndex, 1);
+    }
+    console.log('addCollection this.userCollections', this.userCollections[index]);
+
   }
 }

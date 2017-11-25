@@ -19,7 +19,25 @@
       <h4 class="card-title">{{nasaImage.title}}</h4>
       <img class="card-img-top" [src]="nasaImage.href" alt="Card image cap">
       <div class="card-block">
-        <p class="card-text">{{nasaImage.description}}</p>
+        <p class="card-text">{{nasaImage.description | slice:0:140}}...</p>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <button class="btn btn-outline-primary"><i class="fa fa-plus"></i></button>
+              </mat-panel-title>
+              <mat-panel-description>
+                Add to Collection
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-checkbox    #checkBoxEl *ngFor="let userCollection of userCollections; let i=index" (click)="addCollection(nasaImage, i, checkBoxEl)">
+              {{userCollection.description | slice:0:10}}
+            </mat-checkbox>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <button mat-button class="left btn btn-outline-primary" style="margin: 1%" matDialogClose>Save Choice</button>
       </div>
     </div>
   </div>

@@ -13,9 +13,11 @@ export class AuthService {
     return this.http.post(this.serverApi + 'users/authenticate', { email: email, password: password })
       .map((response: HttpResponse<any>) => {
         // login successful if there's a jwt token in the response
-        console.log('auth.service.login, response', response.body);
-        const user = response.body;
+        console.log('auth.service.login, response', response);
+        const user = <any>response;
         if (user && user.token) {
+
+          console.log('auth.service.login, user.token', user.token);
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
@@ -34,7 +36,7 @@ export class AuthService {
   }
 
   create(user: User) {
-    console.log('auth.servoce.create', user);
+    console.log('auth.service.create', user);
     return this.http.post('users/register', user);
   }
 

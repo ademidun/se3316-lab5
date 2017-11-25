@@ -23,9 +23,9 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
     this.authService.create(this.model)
       .subscribe(
-        data => {
-          console.log('succesful account creation', data);
-          this.router.navigate(['/nasa-collection']);
+        res => {
+          console.log('register.component.successful account creation', res);
+          this.router.navigate(['nasa-collection']);
         },
         error => {
           this.loading = false;
