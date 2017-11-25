@@ -1,13 +1,18 @@
+// mongod --dbpath /Users/tomiwaademidun/Desktop/tomiwa/codeproj/practice/se-3316-webtech/oademid-se3316-lab5/lab5-nasa/server/data
 // Get dependencies
 const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 
+//require('rootpath')();
+var expressJwt = require('express-jwt');
+var config = require('./config.json');
 // Get our API routes
 const api = require('../server/routes/api');
-
+const users = require('../server/routes/users');
 const app = express();
+
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -17,8 +22,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('dist'));
 
 // Set our api routes
-app.use('/api', api);
-console.log("path.join(__dirname, '../dist/index.html')",path.join(__dirname, '../dist/index.html'))
+//app.use('/api', api);
+
+app.use('',expressJwt({
+  secret: config.secret,
+  getToken: function (req) {
+    console.log('expressJWT req, req.headers', req.headers, req.path);
+    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
+      return req.headers.authorization.split(' ')[1];
+    } else if (req.query && req.query.token) {
+      return req.query.token;
+    }
+    return null;
+  }
+}).unless({ path: ['/users/authenticate', '/users/register'] }));
+
+app.use('/users', users);
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
@@ -27,7 +46,7 @@ app.get('*', (req, res) => {
 /**
  * Get port from environment and store in Express.
  */
-const port = process.env.PORT || '3000';
+const port = process.env.PORT || '4000';
 app.set('port', port);
 
 /**

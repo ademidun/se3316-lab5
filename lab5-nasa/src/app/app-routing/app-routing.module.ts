@@ -8,11 +8,13 @@ import {CollectionDetailComponent} from '../collection-detail/collection-detail.
 import {CreateCollectionComponent} from '../create-collection/create-collection.component';
 import {NasaCollectionComponent} from '../nasa-collection/nasa-collection.component';
 import {MyCollectionsComponent} from '../my-collections/my-collections.component';
+import {RegisterComponent} from '../register/register.component';
 
 const routes: Routes = [
 
   {path: '', component: HomeComponent, data: {title: 'Nasa App'}},
   {path: 'login', component: LoginComponent, data: {title: 'Login'}},
+  {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   {path: 'collections-list', component: CollectionsListComponent, data: {title: 'Login'}},
   {path: 'collection-detail/:id', component: CollectionDetailComponent, data: {title: 'Collection Detail'}},
   {path: 'create-collection', component: CreateCollectionComponent, data: {title: 'Create Collection'}},

@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import 'rxjs/add/operator/map';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class CollectionService {
 
-  public nasaApi = 'https://images-api.nasa.gov/'
+  public nasaApi = environment.nasaApi;
 
   constructor(public http: HttpClient) {
   }

@@ -17,8 +17,13 @@ import {MyCollectionsComponent} from './my-collections/my-collections.component'
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CollectionService } from './_services/collection.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { CollectionCardComponent } from './collection-card/collection-card.component';
+import { AuthGuardGuard } from './_guards/auth-guard.guard';
+import {TokenInterceptor} from './_services/token.interceptor';
+import { NavbarComponent } from './navbar/navbar.component';
+import {AuthService} from './_services/auth.service';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +34,9 @@ import { CollectionCardComponent } from './collection-card/collection-card.compo
     CreateCollectionComponent,
     NasaCollectionComponent,
     MyCollectionsComponent,
-    CollectionCardComponent
+    CollectionCardComponent,
+    NavbarComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +48,15 @@ import { CollectionCardComponent } from './collection-card/collection-card.compo
     MatCheckboxModule,
     HttpClientModule
   ],
-  providers: [CollectionService],
+  providers: [CollectionService,
+    AuthGuardGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
