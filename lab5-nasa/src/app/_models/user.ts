@@ -5,4 +5,10 @@ export class User {
   collections: any[];
   firstName: string;
   lastName: string;
+
+  constructor(email?: any, password?: string) {
+    this.email = email ? email : '';
+    this.password = password ? password : '';
+    this.collections = [];
+  }
 }

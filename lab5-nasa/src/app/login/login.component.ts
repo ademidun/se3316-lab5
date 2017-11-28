@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../_services/auth.service';
 import {User} from '../_models/user';
 import {MatSnackBar} from '@angular/material';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -38,15 +39,17 @@ export class LoginComponent implements OnInit {
         res => {
           console.log('login.component.authenticationService.login res', res);
           console.log('returnUrl', this.returnUrl);
-          if (this.returnUrl) {
-            this.router.navigate([this.returnUrl]);
-          } else {
-            this.router.navigate(['my-collections']);
-          }
+          // if (this.returnUrl) {
+          //   this.router.navigate([this.returnUrl]);
+          // } else {
+          //   this.router.navigate(['my-collections']);
+          // }
+          this.router.navigate(['my-collections']);
         },
-        error => {
+        (error: HttpErrorResponse) => {
           this.loading = false;
-          this.snackBar.open("Incorrect login credentials", '', {
+          console.log('login.component.authenticationService.login error', error);
+          this.snackBar.open("Incorrect login credentials:" + error.message, '', {
             duration: 3000
           })
         });

@@ -1,5 +1,5 @@
 export class ImageCollection {
-  id?: any;
+  _id?: any;
   user?: any;
   description?: string;
   title?: string;

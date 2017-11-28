@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../_services/auth.service';
+import {User} from '../_models/user';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import {AuthService} from '../_services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  model: any = {};
+  model = new User();
   loading = false;
 
   constructor(private router: Router,
@@ -21,9 +22,11 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.loading = true;
+    this.model.collections = [];
     this.authService.create(this.model)
       .subscribe(
         res => {
+          this.loading = false;
           console.log('register.component.successful account creation', res);
           this.router.navigate(['nasa-collection']);
         },

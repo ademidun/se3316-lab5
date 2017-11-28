@@ -15,7 +15,7 @@
           </mat-form-field>
           {{imageCollection.private_view}}
           <mat-checkbox [(ngModel)]="imageCollection.private_view" name="private_view">Private View?</mat-checkbox>
-          <button mat-button class="left" matDialogClose>Create Collection</button>
+          <button mat-button class="left" matDialogClose (click)="createCollection()">Create Collection</button>
 
         </div>
     </div>

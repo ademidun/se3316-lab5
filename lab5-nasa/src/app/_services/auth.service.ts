@@ -3,6 +3,9 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {User} from '../_models/user';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthService {
 
@@ -23,7 +26,8 @@ export class AuthService {
         }
 
         return user;
-      });
+      })
+      .catch(err => err);
   }
 
   logout() {
@@ -32,7 +36,9 @@ export class AuthService {
   }
 
   getById(_id: string) {
-    return this.http.get('users/' + _id).map((response: Response) => response.json());
+    return this.http.get('users/' + _id)
+      .map((response: Response) => response.json())
+      .catch(err => err);
   }
 
   create(user: User) {
@@ -41,11 +47,22 @@ export class AuthService {
   }
 
   update(user: User) {
-    return this.http.put('users/' + user._id, user);
+    return this.http.put('users/' + user._id, user)
+      .map(
+        res => {
+          console.log('AuthService.update res:', res);
+          localStorage.setItem('currentUser', JSON.stringify(res));
+          return res;
+        }
+      );
   }
 
   delete(_id: string) {
     return this.http.delete('/users/' + _id);
+  }
+
+  getUser(){
+    return JSON.parse(localStorage.getItem('currentUser'));
   }
 
 }

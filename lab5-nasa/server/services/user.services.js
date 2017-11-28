@@ -31,6 +31,7 @@ function authenticate(email, password) {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        collections: user.collections,
         token: jwt.sign({ sub: user._id }, config.secret)
       });
     } else {
@@ -145,7 +146,12 @@ function update(_id, userParam) {
       firstName: userParam.firstName,
       lastName: userParam.lastName,
       email: userParam.email,
+      token: jwt.sign({ sub: user._id }, config.secret)
     };
+
+    if (userParam.collections){
+      set['collections']= userParam.collections;
+    }
 
     // update password if it was entered
     if (userParam.password) {

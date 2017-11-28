@@ -11,6 +11,7 @@ var config = require('./config.json');
 // Get our API routes
 const api = require('../server/routes/api');
 const users = require('../server/routes/users');
+const collections = require('../server/routes/collections');
 const app = express();
 
 
@@ -27,7 +28,6 @@ app.use(express.static('dist'));
 app.use('',expressJwt({
   secret: config.secret,
   getToken: function (req) {
-    console.log('expressJWT req, req.headers', req.headers, req.path);
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
       return req.headers.authorization.split(' ')[1];
     } else if (req.query && req.query.token) {
@@ -38,6 +38,8 @@ app.use('',expressJwt({
 }).unless({ path: ['/users/authenticate', '/users/register'] }));
 
 app.use('/users', users);
+
+app.use('/collections', collections);
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
