@@ -18,6 +18,7 @@ const routes: Routes = [
   {path: 'collections-list', component: CollectionsListComponent, data: {title: 'Login'}},
   {path: 'collection-detail/:id', component: CollectionDetailComponent, data: {title: 'Collection Detail'}},
   {path: 'create-collection', component: CreateCollectionComponent, data: {title: 'Create Collection'}},
+  {path: 'edit-collection/:id', component: CreateCollectionComponent, data: {title: 'Edit Collection'}},
   {path: 'nasa-collection', component: NasaCollectionComponent, data: {title: 'Nasa Collection'}},
   {path: 'my-collections', component: MyCollectionsComponent, data: {title: 'My Collections'}},
 ];

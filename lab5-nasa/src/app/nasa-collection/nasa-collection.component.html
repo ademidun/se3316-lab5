@@ -20,7 +20,7 @@
       <img class="card-img-top" [src]="nasaImage.href" alt="Card image cap">
       <div class="card-block">
         <p class="card-text">{{nasaImage.description | slice:0:140}}...</p>
-        <mat-accordion>
+        <mat-accordion *ngIf="userCollections">
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -37,7 +37,7 @@
           </mat-expansion-panel>
         </mat-accordion>
 
-        <button mat-button class="left btn btn-outline-primary" style="margin: 1%" matDialogClose>Save Choice</button>
+        <button (close)="saveCollectionEdits" *ngIf="userCollections" mat-button class="left btn btn-outline-primary" style="margin: 1%" matDialogClose>Save Choice</button>
       </div>
     </div>
   </div>

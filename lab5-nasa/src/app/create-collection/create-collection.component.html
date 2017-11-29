@@ -1,6 +1,6 @@
 <div class="container" xmlns="http://www.w3.org/1999/html">
     <div class=" card row">
-        <div class="col-sm-12 col-md-8 offset-md-2">
+        <div *ngIf="imageCollection" class="col-sm-12 col-md-8 offset-md-2">
           <h1 *ngIf="!imageCollection.title">Create a collection</h1>
           <h1 *ngIf="imageCollection.title">{{imageCollection.title}}</h1>
 
@@ -15,8 +15,9 @@
           </mat-form-field>
           {{imageCollection.private_view}}
           <mat-checkbox [(ngModel)]="imageCollection.private_view" name="private_view">Private View?</mat-checkbox>
-          <button mat-button class="left" matDialogClose (click)="createCollection()">Create Collection</button>
+          <button *ngIf="!editMode" mat-button class="left btn btn-primary" matDialogClose (click)="createCollection()">Create Collection</button>
 
+          <button *ngIf="editMode" mat-button class="left btn btn-primary" matDialogClose (click)="saveCollection()">Save Collection</button>
         </div>
     </div>
 </div>

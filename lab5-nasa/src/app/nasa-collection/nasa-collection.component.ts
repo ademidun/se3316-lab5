@@ -3,6 +3,7 @@ import {NasaImage} from '../_models/nasa-image';
 import {CollectionService} from '../_services/collection.service';
 import {ImageCollection} from '../_models/collection';
 import {MatCheckbox} from '@angular/material';
+import {User} from '../_models/user';
 
 @Component({
   selector: 'app-nasa-collection',
@@ -14,15 +15,23 @@ export class NasaCollectionComponent implements OnInit {
   nasaImages: NasaImage[];
   userCollections: ImageCollection[];
   searchTerm: string;
+  currentUser: User;
 
   constructor(public collectionService: CollectionService) {
     this.nasaImages = [];
     // TODO make this into a service
-    this.userCollections = [];
-    for (let i = 0; i < 5; i++) {
-      const userCollection = new ImageCollection(1, i + 'Title', i + 'Description');
-      this.userCollections.push(userCollection);
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (this.currentUser) {
+      this.collectionService.getUserCollections(this.currentUser._id)
+        .subscribe(
+          res => {
+            this.userCollections = res;
+          }
+        );
     }
+
+
   }
 
   ngOnInit() {
@@ -64,4 +73,17 @@ export class NasaCollectionComponent implements OnInit {
     console.log('addCollection this.userCollections', this.userCollections[index]);
 
   }
+
+  saveCollectionEdits() {
+
+    for (let i = 0; i < this.userCollections.length; i++) {
+      this.collectionService.update(this.userCollections[i])
+        .subscribe(
+          res => {
+            console.log('saved collectionService.update res:', res);
+          }
+        );
+    }
+  }
+
 }

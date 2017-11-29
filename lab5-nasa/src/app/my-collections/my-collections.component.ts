@@ -10,8 +10,9 @@ import {User} from '../_models/user';
 })
 export class MyCollectionsComponent implements OnInit {
 
-  userCollections: any[];
+  userCollections = [];
   currentUser: User;
+  myJson = JSON;
   constructor(
     public authService: AuthService,
     public collectionService: CollectionService) {
@@ -20,19 +21,12 @@ export class MyCollectionsComponent implements OnInit {
   ngOnInit() {
 
    this.currentUser = this.authService.getUser();
-    this.collectionService.getAllCollections()
-      .subscribe(
-        res => {
-          console.log('res', res);
-          this.userCollections = res;
-        },
-        error2 => console.log('collections error', error2),
-      );
 
     this.collectionService.getUserCollections(this.currentUser._id)
       .subscribe(
         res => {
           console.log('mycollectionscomponent getUserCollections,', res);
+          this.userCollections = res;
           },
           err => {
             console.log('mycollectionscomponent getUserCollections, err', err);

@@ -14,7 +14,7 @@ export class CollectionService {
   }
 
   getAllCollections() {
-    return this.http.get('/api/posts')
+    return this.http.get('collections')
       .map(res => {
         console.log('collection service res', <any>res);
         return <any>res;
@@ -28,8 +28,25 @@ export class CollectionService {
       .map(res => {
         console.log('collection service res', res);
         return <any>res;
+      })
+      .catch( err => {
+        console.log('collection service err', err);
+        return <any>err;
       });
   }
+
+  getById(userId) {
+    return this.http.get(`collections/${userId}`)
+      .map(res => {
+        console.log('collection service res', res);
+        return <any>res;
+      })
+      .catch( err => {
+        console.log('collection service err', err);
+        return <any>err;
+      });
+  }
+
   getNasaCollections(query ?: string) {
     query = query ? query : 'nasa';
     return this.http.get(`${this.nasaApi}/search?q=${query}&media_type=image`)
@@ -44,5 +61,18 @@ export class CollectionService {
         .map(res => res)
         .catch(err => err);
     }
+
+
+  update(collection: ImageCollection) {
+
+    return this.http.put('collections/' + collection._id, collection)
+      .map(
+        res => {
+          console.log('AuthService.update res:', res);
+          localStorage.setItem('currentUser', JSON.stringify(res));
+          return res;
+        }
+      );
+  }
 
 }
