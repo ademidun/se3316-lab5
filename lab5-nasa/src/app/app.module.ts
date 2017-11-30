@@ -24,7 +24,8 @@ import {TokenInterceptor} from './_services/token.interceptor';
 import {NavbarComponent} from './navbar/navbar.component';
 import {AuthService} from './_services/auth.service';
 import {RegisterComponent} from './register/register.component';
-import {MatExpansionModule, MatIconModule, MatSnackBarModule} from '@angular/material';
+import {MatExpansionModule, MatIconModule, MatSliderModule, MatSnackBarModule} from '@angular/material';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MatExpansionModule, MatIconModule, MatSnackBarModule} from '@angular/mat
     MyCollectionsComponent,
     CollectionCardComponent,
     NavbarComponent,
-    RegisterComponent
+    RegisterComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import {MatExpansionModule, MatIconModule, MatSnackBarModule} from '@angular/mat
     HttpClientModule,
     MatSnackBarModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSliderModule
   ],
   providers: [CollectionService,
     AuthGuardGuard,

@@ -62,21 +62,23 @@ export class NasaCollectionComponent implements OnInit {
 
     console.log('addCollection nasaImage', nasaImage, index, checkBoxEl.checked, this.userCollections[index].images.includes(nasaImage.href));
 
-    if (!checkBoxEl.checked && !this.userCollections[index].images.includes(nasaImage.href)) {
-      this.userCollections[index].images.push(nasaImage.href);
+    if (!checkBoxEl.checked && !this.userCollections[index].images.includes(nasaImage)) {
+      this.userCollections[index].images.push(nasaImage);
     }
 
     if (checkBoxEl.checked) {
-      const findIndex = this.userCollections[index].images.indexOf(nasaImage.href);
+      const findIndex = this.userCollections[index].images.indexOf(nasaImage);
       this.userCollections[index].images.splice(findIndex, 1);
     }
     console.log('addCollection this.userCollections', this.userCollections[index]);
 
   }
 
-  saveCollectionEdits() {
+  saveCollection() {
 
     for (let i = 0; i < this.userCollections.length; i++) {
+
+      console.log('saving collection this.userCollections[i]:', this.userCollections[i]);
       this.collectionService.update(this.userCollections[i])
         .subscribe(
           res => {

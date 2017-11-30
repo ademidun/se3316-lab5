@@ -4,16 +4,16 @@ var router = express.Router();
 var collectionService = require('../services/collection.services');
 
 // routes
-router.post('/create', register);
+router.post('/create', create);
 router.get('/user-collections/:_id', userCollections);
 router.get('/:_id', getById);
 
 router.put('/:_id', update);
-router.get('/collections', getAll);
+router.get('', getAll);
 
 module.exports = router;
 
-function register(req, res) {
+function create(req, res) {
 
   console.log('collections.js register req, req.headers', req.path);
   collectionService.create(req.body)
@@ -73,8 +73,12 @@ function userCollections(req, res) {
 
 function update(req, res) {
   collectionService.update(req.params._id, req.body)
-    .then(function () {
-      res.sendStatus(200);
+    .then(function (result) {
+      //console.log('collectionService.update res:', res);
+      console.log('collectionService.update res.body:', res.body);
+      console.log('collectionService.update req.body:', req.body);
+      console.log('collectionService.update result:', result);
+      res.status(200).send(req.body);
     })
     .catch(function (err) {
       res.status(400).send(err);

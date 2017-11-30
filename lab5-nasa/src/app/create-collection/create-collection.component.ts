@@ -19,7 +19,7 @@ export class CreateCollectionComponent implements OnInit {
   constructor(public collectionService: CollectionService,
               public authService: AuthService,
               public router: Router,
-              public route: ActivatedRoute,) {
+              public route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -81,5 +81,9 @@ export class CreateCollectionComponent implements OnInit {
           console.log('saved collection res: ', res);
         }
       );
+  }
+
+  removeImage(index: number){
+    this.imageCollection[index].images.splice(index, 1);
   }
 }

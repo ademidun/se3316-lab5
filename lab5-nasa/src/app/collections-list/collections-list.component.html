@@ -1,11 +1,51 @@
 <div class="container">
-  <div class="row" *ngFor="let post of publicCollections">
-    <div class="card card-block">
-      <h4 class="card-title">{{ post.title }}</h4>
-      <p class="card-text">{{post.body}}</p>
+  <div class="row">
 
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+    <div class="card col-12 col-lg-3" style="margin: 1%" *ngFor="let post of publicCollections; let i = index">
+      <h4 class="card-title">{{post.title}}</h4>
+      <img *ngIf="post.images && post.images.length>0" class="card-img-top" [src]="post.images[0].href"
+           alt="Image Preview">
+      <div class="card-block">
+        <p class="card-text">{{post.description | slice:0:140}}...</p>
+        <mat-slider [(ngModel)]="collectionRating" min="1" max="5" step="1" thumbLabel tickInterval="1"></mat-slider>
+        <p> Average Rating: {{post.rating_average}}</p> <p>Your Rating: {{collectionRating}}</p>
+        <a href="javascript:undefined" (click)="saveRating(collectionRating, i)" class="btn btn-link">Save Rating</a>
+
+        <a [routerLink]="['/collection-detail', post._id]" class="btn btn-link btn-outline-primary">View Collection</a>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="card col-12 col-lg-3" style="margin: 1%" *ngFor="let nasaImage of nasaImages">
+        <h4 class="card-title">{{nasaImage.title}}</h4>
+        <img class="card-img-top" [src]="nasaImage.href" alt="Card image cap">
+        <div class="card-block">
+          <p class="card-text">{{nasaImage.description | slice:0:140}}...</p>
+          <mat-accordion *ngIf="userCollections">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <button class="btn btn-outline-primary"><i class="fa fa-plus"></i></button>
+                </mat-panel-title>
+                <mat-panel-description>
+                  Add to Collection
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-checkbox #checkBoxEl *ngFor="let userCollection of userCollections; let i=index"
+                            (click)="addCollection(nasaImage, i, checkBoxEl)">
+                {{userCollection.description | slice:0:10}}
+              </mat-checkbox>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <button (close)="saveCollection()" *ngIf="userCollections" mat-button class="left btn btn-outline-primary"
+                  style="margin: 1%" matDialogClose>Save Choice
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
+
 </div>

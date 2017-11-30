@@ -1,3 +1,20 @@
-<p>
-  collection-detail works!
-</p>
+<div class="container" >
+
+    <h4 class="card-title">{{imageCollection.title}}</h4>
+    <br>
+      <p class="card-text" style="font-size: larger">{{imageCollection.description }}</p>
+
+  <div class="row" *ngIf="imageCollection">
+    <div class="card col-12 col-lg-3" style="margin: 1%" *ngFor="let nasaImage of imageCollection.images; let i = index" >
+      <h4 class="card-title">{{nasaImage.title}}</h4>
+      <img class="card-img-top" [src]="nasaImage.href" alt="Card image cap">
+      <div class="card-block">
+        <p class="card-text">{{nasaImage.description | slice:0:140}}...</p>
+        <button (click)="removeImage(i)" *ngIf="userCollections" mat-button class="left btn btn-outline-primary"
+                style="margin: 1%" matDialogClose>Remove Item</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>

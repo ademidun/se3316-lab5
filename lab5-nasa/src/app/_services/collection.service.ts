@@ -68,8 +68,7 @@ export class CollectionService {
     return this.http.put('collections/' + collection._id, collection)
       .map(
         res => {
-          console.log('AuthService.update res:', res);
-          localStorage.setItem('currentUser', JSON.stringify(res));
+          console.log('collection.update res:', res);
           return res;
         }
       );

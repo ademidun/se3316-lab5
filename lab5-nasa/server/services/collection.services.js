@@ -2,6 +2,7 @@ var config = require('../config.json');
 var _ = require('lodash');
 var Q = require('q');
 var mongo = require('mongoskin');
+var ObjectID = require('mongodb').ObjectID;
 var db = mongo.db(config.connectionString, {native_parser: true});
 db.bind('collections');
 
@@ -26,7 +27,7 @@ function create(collectionParam) {
     function (err, doc) {
       if (err) deferred.reject(err.name + ': ' + err.message);
 
-      deferred.resolve();
+      deferred.resolve(doc);
     });
 
   return deferred.promise;
@@ -52,7 +53,7 @@ function getAll() {
   var deferred = Q.defer();
 
   db.collections.find({private_view: false}).toArray(function (err, collections) {
-
+    console.log('db.collections.find({private_view: false}) collections:', collections);
     if (err) deferred.reject(err.name + ': ' + err.message);
     // return users (without hashed passwords)
     else {
@@ -81,16 +82,23 @@ function getUserCollections(_id) {
 function update(_id, collectionParam) {
   var deferred = Q.defer();
 
+  console.log('collection.services.update _id, collectionParam:', _id, collectionParam);
 
+  collectionParam = _.omit(collectionParam, '_id');
+  db.collections.update(
+    { _id: mongo.helper.toObjectID(_id) },
+    { $set: collectionParam },
+    function (err, doc) {
+      if (err) deferred.reject(err.name + ': ' + err.message);
+    console.log('db.collections.update doc:', doc);
 
-    db.collections.update(
-      { _id: mongo.helper.toObjectID(_id) },
-      { $set: collectionParam },
-      function (err, doc) {
-        if (err) deferred.reject(err.name + ': ' + err.message);
-        console.log('collection.services.update doc:', doc);
-        deferred.resolve();
-      });
+      console.log('db.collections.update doc.Response:', doc.message);
+
+      if(doc.Response){
+        console.log('db.collections.update doc.Response.documents:', doc.message.documents);
+      }
+      deferred.resolve();
+    });
 
 
   return deferred.promise;

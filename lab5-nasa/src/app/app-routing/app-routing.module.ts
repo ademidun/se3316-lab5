@@ -9,6 +9,8 @@ import {CreateCollectionComponent} from '../create-collection/create-collection.
 import {NasaCollectionComponent} from '../nasa-collection/nasa-collection.component';
 import {MyCollectionsComponent} from '../my-collections/my-collections.component';
 import {RegisterComponent} from '../register/register.component';
+import {Privacy} from 'tslint/lib/rules/completedDocsRule';
+import {PrivacyComponent} from '../privacy/privacy.component';
 
 const routes: Routes = [
 
@@ -21,6 +23,7 @@ const routes: Routes = [
   {path: 'edit-collection/:id', component: CreateCollectionComponent, data: {title: 'Edit Collection'}},
   {path: 'nasa-collection', component: NasaCollectionComponent, data: {title: 'Nasa Collection'}},
   {path: 'my-collections', component: MyCollectionsComponent, data: {title: 'My Collections'}},
+  {path: 'terms', component: PrivacyComponent, data: {title: 'Terms of Use'}},
 ];
 
 @NgModule({

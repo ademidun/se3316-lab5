@@ -1,5 +1,6 @@
 export class NasaImage {
   nasa_id?: string;
+  collection?: string;
   description?: string;
   title?: string;
   href?: string;

@@ -37,7 +37,7 @@
           </mat-expansion-panel>
         </mat-accordion>
 
-        <button (close)="saveCollectionEdits" *ngIf="userCollections" mat-button class="left btn btn-outline-primary" style="margin: 1%" matDialogClose>Save Choice</button>
+        <button (click)="saveCollection()" *ngIf="userCollections" mat-button class="left btn btn-outline-primary" style="margin: 1%" matDialogClose>Save Choice</button>
       </div>
     </div>
   </div>
