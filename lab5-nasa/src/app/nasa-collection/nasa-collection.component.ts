@@ -12,10 +12,12 @@ import {User} from '../_models/user';
 })
 export class NasaCollectionComponent implements OnInit {
 
+  allResults: NasaImage[];
   nasaImages: NasaImage[];
   userCollections: ImageCollection[];
   searchTerm: string;
   currentUser: User;
+  currentPage = 1;
 
   constructor(public collectionService: CollectionService) {
     this.nasaImages = [];
@@ -44,15 +46,10 @@ export class NasaCollectionComponent implements OnInit {
       .subscribe(
         res => {
           const resLength = res.collection.items.length < 10 ? res.collection.items.length : 10;
+          this.allResults = res.collection.items;
           const nasaObjects: any[] = res.collection.items.slice(0, resLength);
 
-          this.nasaImages.length = 0;
-          nasaObjects.forEach(nasaObject => {
-
-            const nasaImage = new NasaImage(nasaObject);
-            this.nasaImages.push(nasaImage);
-
-          });
+          this.setImages(nasaObjects);
         });
     this.searchTerm = '';
   }
@@ -88,4 +85,28 @@ export class NasaCollectionComponent implements OnInit {
     }
   }
 
+  nextPage() {
+    this.currentPage += 1;
+    const nasaObjects: any[] = this.allResults.slice((this.currentPage - 1) * 10, this.currentPage * 10);
+
+    this.setImages(nasaObjects);
+
+  }
+
+  prevPage() {
+    this.currentPage = Math.max(this.currentPage - 1, 1);
+    const nasaObjects: any[] = this.allResults.slice((this.currentPage - 1) * 10, this.currentPage * 10);
+
+    this.setImages(nasaObjects);
+  }
+
+  setImages(nasaObjects: any[]) {
+    this.nasaImages.length = 0;
+    nasaObjects.forEach(nasaObject => {
+
+      const nasaImage = new NasaImage(nasaObject);
+      this.nasaImages.push(nasaImage);
+
+    });
+  }
 }

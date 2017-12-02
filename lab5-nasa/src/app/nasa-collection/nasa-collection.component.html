@@ -5,6 +5,9 @@
       <h4 class="card-title" style="text-align: center"> Browse Nasa Collections</h4>
   </div>
 
+  <button (click)="prevPage()" mat-button class="left btn btn-outline-primary" style="margin: 1%">Prev</button>
+  <button (click)="nextPage()" mat-button class="left btn btn-outline-primary" style="margin: 1%">Next</button>
+
   <div class="row" >
     <mat-form-field class="col col-sm-8">
       <input matInput class="browser-default" id="search" type="text" (keyup.enter)="sendQuery()"
@@ -41,5 +44,8 @@
       </div>
     </div>
   </div>
+
+  <button (click)="prevPage()" mat-button class="left btn btn-outline-primary" style="margin: 1%">Prev</button>
+  <button (click)="nextPage()" mat-button class="left btn btn-outline-primary" style="margin: 1%">Next</button>
 
 </div>

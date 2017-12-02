@@ -22,6 +22,15 @@ export class CollectionService {
 
   }
 
+  filter(filterParams) {
+    return this.http.post('collections/filter', filterParams )
+      .map(res => {
+        console.log('collection service filter res', <any>res);
+        return <any>res;
+      });
+
+  }
+
 
   getUserCollections(userId) {
     return this.http.get(`collections/user-collections/${userId}`)
@@ -66,6 +75,17 @@ export class CollectionService {
   update(collection: ImageCollection) {
 
     return this.http.put('collections/' + collection._id, collection)
+      .map(
+        res => {
+          console.log('collection.update res:', res);
+          return res;
+        }
+      );
+  }
+
+  delete(_id: any) {
+
+    return this.http.delete('collections/' + _id)
       .map(
         res => {
           console.log('collection.update res:', res);

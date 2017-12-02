@@ -18,7 +18,22 @@
           <button *ngIf="!editMode" mat-button class="left btn btn-primary" matDialogClose (click)="createCollection()">Create Collection</button>
 
           <button *ngIf="editMode" mat-button class="left btn btn-primary" matDialogClose (click)="saveCollection()">Save Collection</button>
+          <button *ngIf="editMode" mat-button class="left btn btn-danger" matDialogClose (click)="confirmDelete=!confirmDelete">Delete Collection</button>
+          <div *ngIf="editMode && confirmDelete">
+            <button mat-button class="btn btn-danger" matDialogClose (click)="deleteCollection()">Yes, Delete</button>
+            <button mat-button class="btn btn-primary" matDialogClose (click)="confirmDelete=!confirmDelete">Cancel</button>
+          </div>
         </div>
+    </div>
+
+
+  <div class="row" *ngIf="editMode && imageCollection">
+      <p *ngIf="imageCollection.dmca_block" style="font-size: larger">This post has a DMCA block.</p>
+
+      <input [(ngModel)]="disputeMessage" placeholder="Enter Dispute Message">
+
+      <button  class="btn btn-primary" (click)="sendDispute()">Dispute Complaint</button>
+
     </div>
 
     <div class="row" *ngIf="editMode && imageCollection" >
@@ -27,7 +42,7 @@
       <img class="card-img-top" [src]="nasaImage.href" alt="Card image cap">
       <div class="card-block">
         <p class="card-text">{{nasaImage.description | slice:0:140}}...</p>
-        <button (click)="removeImage(i)" *ngIf="userCollections" mat-button class="left btn btn-outline-primary"
+        <button (click)="removeImage(i)" mat-button class="left btn btn-outline-primary"
                 style="margin: 1%" matDialogClose>Remove Item</button>
       </div>
     </div>

@@ -26,6 +26,7 @@ import {AuthService} from './_services/auth.service';
 import {RegisterComponent} from './register/register.component';
 import {MatExpansionModule, MatIconModule, MatSliderModule, MatSnackBarModule} from '@angular/material';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
     CollectionCardComponent,
     NavbarComponent,
     RegisterComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

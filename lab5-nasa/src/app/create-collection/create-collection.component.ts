@@ -4,6 +4,7 @@ import {User} from '../_models/user';
 import {CollectionService} from '../_services/collection.service';
 import {AuthService} from '../_services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-create-collection',
@@ -15,11 +16,14 @@ export class CreateCollectionComponent implements OnInit {
   public imageCollection: ImageCollection;
   public currentUser: User;
   public editMode = false;
+  public confirmDelete = false;
+  public disputeMessage;
 
   constructor(public collectionService: CollectionService,
               public authService: AuthService,
               public router: Router,
-              public route: ActivatedRoute) {
+              public route: ActivatedRoute,
+              public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -52,7 +56,7 @@ export class CreateCollectionComponent implements OnInit {
 
     this.collectionService.createCollection(this.imageCollection)
       .subscribe(
-        (res: ImageCollection) => {
+        (res: any) => {
           console.log('collectionService.createCollection res', res);
           this.currentUser.collections.push(res._id);
           console.log('create collection updateUser this.currentUser:', this.currentUser);
@@ -83,7 +87,43 @@ export class CreateCollectionComponent implements OnInit {
       );
   }
 
-  removeImage(index: number){
-    this.imageCollection[index].images.splice(index, 1);
+  deleteCollection() {
+
+    console.log('about to delete collection  this.imageCollection: ', this.imageCollection);
+    this.collectionService.delete(this.imageCollection._id)
+      .subscribe(
+        res => {
+          console.log('deleted collection res: ', res);
+          this.snackBar.open('Deleted Collection:' + res, '', {
+            duration: 3000
+          });
+
+          setTimeout(
+            this.router.navigate(['']), 3250);
+        }
+      );
+  }
+
+  sendDispute() {
+    this.imageCollection.dmca_dispute = this.disputeMessage;
+
+    this.collectionService.update(this.imageCollection).subscribe(
+      res => {
+        console.log('collectionlist.SaveRating() res:', res);
+      }
+    );
+
+  }
+
+  removeImage(index: number) {
+
+    this.imageCollection.images.splice(index, 1);
+
+    this.collectionService.update(this.imageCollection)
+      .subscribe(
+        res => {
+          console.log('saved collection res: ', res);
+        }
+      );
   }
 }

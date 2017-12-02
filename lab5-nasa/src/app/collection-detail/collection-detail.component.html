@@ -1,13 +1,23 @@
-<div class="container" >
+<div *ngIf="imageCollection" class="container" >
 
     <h4 class="card-title">{{imageCollection.title}}</h4>
     <br>
       <p class="card-text" style="font-size: larger">{{imageCollection.description }}</p>
 
-  <div class="row" *ngIf="imageCollection">
+
+  <input [(ngModel)]="disputeMessage" placeholder="Enter Complaint Message">
+
+  <button  class="btn btn-primary" (click)="fileComplaint()">File Complaint</button>
+
+
+  <p *ngIf="imageCollection.dmca_block" style="font-size: larger"> This collection has received a DMCA block</p>
+
+  <div class="row" *ngIf="imageCollection && !imageCollection.dmca_block">
     <div class="card col-12 col-lg-3" style="margin: 1%" *ngFor="let nasaImage of imageCollection.images; let i = index" >
       <h4 class="card-title">{{nasaImage.title}}</h4>
-      <img class="card-img-top" [src]="nasaImage.href" alt="Card image cap">
+      <a [href]="nasaImage.href" target="_blank">
+        <img class="card-img-top" [src]="nasaImage.href" alt="Card image cap">
+      </a>
       <div class="card-block">
         <p class="card-text">{{nasaImage.description | slice:0:140}}...</p>
         <button (click)="removeImage(i)" *ngIf="userCollections" mat-button class="left btn btn-outline-primary"
@@ -15,6 +25,7 @@
       </div>
     </div>
   </div>
+
 
 
 </div>

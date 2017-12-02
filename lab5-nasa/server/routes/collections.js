@@ -5,10 +5,14 @@ var collectionService = require('../services/collection.services');
 
 // routes
 router.post('/create', create);
+router.post('/filter', filter);
 router.get('/user-collections/:_id', userCollections);
-router.get('/:_id', getById);
 
+router.get('/:_id', getById);
 router.put('/:_id', update);
+router.delete('/:_id', _delete);
+
+
 router.get('', getAll);
 
 module.exports = router;
@@ -70,6 +74,33 @@ function userCollections(req, res) {
     });
 }
 
+function _delete(req, res) {
+  collectionService._delete(req.params._id)
+    .then(function () {
+      console.log('collectionService._delete res.body:', res.body);
+      console.log('collectionService._delete req.body:', req.body);
+      res.status(200).send(res);
+    })
+    .catch(function (err) {
+      res.status(400).send(err);
+    });
+}
+
+
+function filter(req,res){
+  console.log('collections.js filter req.body, req.path', req.body, req.path);
+
+  collectionService.filter(req.body)
+    .then(function (collections) {
+      console.log('collectionService.filter collections:', collections);
+      console.log('collectionService.filter res.status, ', res.status);
+      res.status(200).send(collections);
+    })
+    .catch(function (err) {
+      console.log('collectionService.getUserCollections err', err);
+      res.status(400).send(err);
+    });
+}
 
 function update(req, res) {
   collectionService.update(req.params._id, req.body)
@@ -84,4 +115,5 @@ function update(req, res) {
       res.status(400).send(err);
     });
 }
+
 

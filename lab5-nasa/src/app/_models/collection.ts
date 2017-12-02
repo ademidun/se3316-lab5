@@ -5,6 +5,9 @@ export class ImageCollection {
   title?: string;
   images?: any[];
   private_view?: boolean;
+  dmca_block?: boolean;
+  dmca_message?: string;
+  dmca_dispute?: string;
   /**
    * ratings = [ "user_id" : <rating>, "user2_id": <rating>]
    */
@@ -18,7 +21,10 @@ export class ImageCollection {
     this.private_view = true;
     this.images = [];
     this.ratings = [];
-    this.rating_average = 3;
+    this.rating_average = 5;
+    this.dmca_block = false;
+    this.dmca_message = '';
+    this.dmca_dispute = '';
   }
 
   // TODO make this less repetitive and combine into one method? Or is 2 seperate methods more modular and better?

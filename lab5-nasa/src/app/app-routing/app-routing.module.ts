@@ -11,6 +11,7 @@ import {MyCollectionsComponent} from '../my-collections/my-collections.component
 import {RegisterComponent} from '../register/register.component';
 import {Privacy} from 'tslint/lib/rules/completedDocsRule';
 import {PrivacyComponent} from '../privacy/privacy.component';
+import {AdminComponent} from '../admin/admin.component';
 
 const routes: Routes = [
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'nasa-collection', component: NasaCollectionComponent, data: {title: 'Nasa Collection'}},
   {path: 'my-collections', component: MyCollectionsComponent, data: {title: 'My Collections'}},
   {path: 'terms', component: PrivacyComponent, data: {title: 'Terms of Use'}},
+  {path: 'admin', component: AdminComponent, data: {title: 'Admin Panel'}},
 ];
 
 @NgModule({

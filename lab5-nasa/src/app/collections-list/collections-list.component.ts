@@ -14,7 +14,9 @@ export class CollectionsListComponent implements OnInit {
 
   publicCollections: ImageCollection[];
   currentUser: User;
-  collectionRating = 3;
+  userId;
+  collectionRating = 5;
+  disputeMessage;
 
   // onRatingChangeResult:OnRatingChangeEven;
   constructor(public authService: AuthService,
@@ -24,12 +26,23 @@ export class CollectionsListComponent implements OnInit {
   ngOnInit() {
 
     this.currentUser = this.authService.getUser();
-
     this.collectionService.getAllCollections()
       .subscribe(
         res => {
           console.log('mycollectionscomponent getUserCollections,', res);
           this.publicCollections = res;
+
+          for (let i = 0; i < this.publicCollections.length; i++) {
+            if (!this.publicCollections[i].rating_average) {
+              this.publicCollections[i].rating_average = 5;
+            }
+            if (!this.publicCollections[i].rating_average) {
+              this.publicCollections[i].rating_average = 5;
+            }
+          }
+          this.publicCollections.sort(function (collection1, collection2) {
+            return collection2.rating_average - collection1.rating_average;
+          });
 
 
         },
@@ -46,6 +59,7 @@ export class CollectionsListComponent implements OnInit {
       this.publicCollections[index].rating_average = ratingScore;
     }
 
+
     // quick fix for a bug because some rating_averages are already null in the database
 
     if (!this.publicCollections[index].rating_average || this.publicCollections[index].rating_average <= 1) {
@@ -53,6 +67,26 @@ export class CollectionsListComponent implements OnInit {
     }
     const entry = {};
     entry[this.currentUser._id] = ratingScore;
+
+    let alreadyRated = false;
+    let prevRatingIndex = 0;
+    for (; prevRatingIndex < this.publicCollections[index].ratings.length; prevRatingIndex++) {
+      const elem = this.publicCollections[index].ratings[prevRatingIndex];
+
+      for (const key in elem) {
+        if (this.currentUser._id === key) {
+          alreadyRated = true;
+        }
+      }
+
+      if (alreadyRated) {
+        break;
+      }
+
+
+    }
+    this.publicCollections[index].ratings.splice(prevRatingIndex, 1);
+
     this.publicCollections[index].ratings.push(entry);
 
     const N = this.publicCollections[index].ratings.length;
@@ -77,6 +111,19 @@ export class CollectionsListComponent implements OnInit {
     }
 
     this.publicCollections[index].rating_average = sum / N;
+
+    this.collectionService.update(this.publicCollections[index]).subscribe(
+      res => {
+        console.log('collectionlist.SaveRating() res:', res);
+      }
+    );
+
+  }
+
+  fileComplaint(index) {
+
+    this.publicCollections[index].dmca_message = this.disputeMessage;
+    this.publicCollections[index].dmca_block = true;
 
     this.collectionService.update(this.publicCollections[index]).subscribe(
       res => {

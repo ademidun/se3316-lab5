@@ -1,0 +1,56 @@
+<div class="container">
+
+  <div>
+
+    <h5>How to Log TakeDown Request</h5>
+
+    <p>
+      In the  <a routerLink="/collections-list">collections list </a>page.
+      Enter the reason for your complaint and click the file complaint button.
+    </p>
+
+    <h5>DMCA TakeDown Procedure</h5>
+
+    <ol>
+      <li>
+        In the collection detail page, accessed via the <a routerLink="/collections-list">collections list </a>page.
+        Enter the reason for your complaint and click the file complaint button.
+      </li>
+
+
+      <li>
+        Users can dispute take-down complaints in the edit collection page via <a routerLink="/my-collections">my collections</a>.
+        Enter the reason for your dispute and click the File Dispute button.
+      </li>
+
+      <li>
+        In the <a routerLink="/admin">admin</a> page.
+        You can review the complaints and disputes for each item,
+        you have the option to click Remove Takedown Block to re-grant access to the content.
+      </li>
+
+    </ol>
+
+  </div>
+
+  <div class="container">
+    <div class="row">
+
+      <div class="card col-12 col-lg-3" style="margin: 1%" *ngFor="let post of adminCollections; let i = index">
+        <h4 class="card-title">{{post.title}}</h4>
+        <img *ngIf="post.images && post.images.length>0 && !post.dmca_block" class="card-img-top" [src]="post.images[0].href"
+             alt="Image Preview">
+        <p *ngIf="post.dmca_block"> This image has been blocked by DMCA</p>
+        <p style="font-size: larger; font-weight: bold"> Complaint Message: </p>
+        {{post.dmca_message}}
+        <p style="font-size: larger; font-weight: bold"> Dispute Message: </p>
+        {{post.dmca_dispute}}
+        <p style="font-size: larger; font-weight: bold" *ngIf="post.dmca_block"> This image has been blocked by DMCA</p>
+        <button class="btn btn-primary" (click)="removeBlock(i)">Remove Block</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,19 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {User} from '../_models/user';
-
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  public serverApi = environment.serverApi;
 
-  public  serverApi = environment.serverApi;
+  constructor(private http: HttpClient) {
+  }
+
   login(email: string, password: string) {
-    return this.http.post(this.serverApi + 'users/authenticate', { email: email, password: password })
+    return this.http.post(this.serverApi + 'users/authenticate', {email: email, password: password})
       .map((response: HttpResponse<any>) => {
         // login successful if there's a jwt token in the response
         console.log('auth.service.login, response', response);
@@ -43,7 +44,9 @@ export class AuthService {
 
   create(user: User) {
     console.log('auth.service.create', user);
-    return this.http.post('users/register', user);
+    return this.http.post('users/register', user)
+      .map(res => res)
+      .catch(err => err);
   }
 
   update(user: User) {
@@ -61,7 +64,7 @@ export class AuthService {
     return this.http.delete('/users/' + _id);
   }
 
-  getUser(){
+  getUser() {
     return JSON.parse(localStorage.getItem('currentUser'));
   }
 

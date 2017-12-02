@@ -3,13 +3,17 @@
 
     <div class="card col-12 col-lg-3" style="margin: 1%" *ngFor="let post of publicCollections; let i = index">
       <h4 class="card-title">{{post.title}}</h4>
-      <img *ngIf="post.images && post.images.length>0" class="card-img-top" [src]="post.images[0].href"
+      <img *ngIf="post.images && post.images.length>0 && !post.dmca_block" class="card-img-top" [src]="post.images[0].href"
            alt="Image Preview">
+      <p *ngIf="post.dmca_block"> This collection has been blocked by DMCA</p>
       <div class="card-block">
         <p class="card-text">{{post.description | slice:0:140}}...</p>
-        <mat-slider [(ngModel)]="collectionRating" min="1" max="5" step="1" thumbLabel tickInterval="1"></mat-slider>
+        <span *ngIf="currentUser && currentUser._id!=post.user">
+          <mat-slider [(ngModel)]="collectionRating" min="1" max="10" step="1" thumbLabel tickInterval="1"></mat-slider>
+          <a href="javascript:undefined" (click)="saveRating(collectionRating, i)" class="btn btn-link">Save Rating</a>
+        </span>
+
         <p> Average Rating: {{post.rating_average}}</p> <p>Your Rating: {{collectionRating}}</p>
-        <a href="javascript:undefined" (click)="saveRating(collectionRating, i)" class="btn btn-link">Save Rating</a>
 
         <a [routerLink]="['/collection-detail', post._id]" class="btn btn-link btn-outline-primary">View Collection</a>
       </div>

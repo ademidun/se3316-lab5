@@ -16,6 +16,10 @@ service.getAll = getAll;
 
 service.update = update;
 
+
+service._delete = _delete;
+service.filter = filter;
+
 module.exports = service;
 
 function create(collectionParam) {
@@ -64,6 +68,21 @@ function getAll() {
   return deferred.promise;
 }
 
+function filter(filterParams) {
+  var deferred = Q.defer();
+
+  db.collections.find(filterParams).toArray(function (err, collections) {
+
+    if (err) deferred.reject(err.name + ': ' + err.message);
+    // return users (without hashed passwords)
+    else {
+      console.log('filter Params, collections:',collections);
+      deferred.resolve(collections);
+    }
+  });
+
+  return deferred.promise;
+}
 function getUserCollections(_id) {
   var deferred = Q.defer();
 
@@ -103,6 +122,21 @@ function update(_id, collectionParam) {
 
   return deferred.promise;
 }
+
+function _delete(_id) {
+  var deferred = Q.defer();
+
+  db.collections.remove(
+    { _id: mongo.helper.toObjectID(_id) },
+    function (err) {
+      if (err) deferred.reject(err.name + ': ' + err.message);
+
+      deferred.resolve();
+    });
+
+  return deferred.promise;
+}
+
 //
 // function getUserCollections(_id) {
 //   var deferred = Q.defer();

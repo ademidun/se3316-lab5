@@ -14,6 +14,7 @@ export class CollectionDetailComponent implements OnInit {
   public imageCollection: ImageCollection;
   public currentUser: User;
   public editMode = false;
+  public disputeMessage;
 
   constructor(public collectionService: CollectionService,
               public authService: AuthService,
@@ -42,6 +43,20 @@ export class CollectionDetailComponent implements OnInit {
           }
         );
     }
+  }
+
+
+  fileComplaint() {
+
+    this.imageCollection.dmca_message = this.disputeMessage;
+    this.imageCollection.dmca_block = true;
+
+    this.collectionService.update(this.imageCollection).subscribe(
+      res => {
+        console.log('collectionlist.SaveRating() res:', res);
+      }
+    );
+
   }
 
 }
