@@ -4,6 +4,12 @@
 </div>
 
 
+<div *ngIf="currentUser && !currentUser.isVerified" class="form-group" style="text-align: center">
+  Your account is unverified.
+  <button (click)="verifyAccount()" class="btn btn-link">Verify Account</button>
+</div>
+
+
 <div class="container">
   <div class="row">
     <div class=" col col-12 col-lg-3" *ngFor="let post of userCollections">

@@ -76,6 +76,18 @@ export class AuthService {
     return this.http.delete('/users/' + _id);
   }
 
+  verify(user: User) {
+    return this.http.post('users/reverify/', user)
+      .map(res => {
+        console.log('auth.service. verify res: ', res);
+        return res;
+      })
+      .catch(err => {
+        console.log('auth.service. verify res: ', err);
+        return err;
+      });
+  }
+
   getUser() {
     return JSON.parse(localStorage.getItem('currentUser'));
   }

@@ -7,6 +7,8 @@ export class User {
   lastName: string;
   security_policy: any;
   privacy_policy: any;
+  isVerified: boolean;
+  verifyToken: string;
 
 
 
@@ -14,5 +16,8 @@ export class User {
     this.email = email ? email : '';
     this.password = password ? password : '';
     this.collections = [];
+    this.isVerified = false;
+    this.verifyToken = '';
+
   }
 }

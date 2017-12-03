@@ -16,6 +16,7 @@ import {AdminComponent} from '../admin/admin.component';
 const routes: Routes = [
 
   {path: '', component: HomeComponent, data: {title: 'Nasa App'}},
+  {path: 'users/verify/:id', component: HomeComponent, data: {title: 'Verification'}},
   {path: 'login', component: LoginComponent, data: {title: 'Login'}},
   {path: 'register', component: RegisterComponent, data: {title: 'Register'}},
   {path: 'collections-list', component: CollectionsListComponent, data: {title: 'Login'}},

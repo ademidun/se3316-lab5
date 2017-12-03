@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class MyCollectionsComponent implements OnInit {
 
   userCollections = [];
-  currentUser: User;
+  currentUser: any;
   myJson = JSON;
 
   constructor(public authService: AuthService,
@@ -51,6 +51,18 @@ export class MyCollectionsComponent implements OnInit {
     }
 
 
+  }
+
+  verifyAccount() {
+    this.authService.verify(this.currentUser)
+      .subscribe(
+        res => {
+          console.log('my collections verify res', res);
+        },
+        err => {
+          console.log('update after verify err', err);
+        }
+      );
   }
 
 }

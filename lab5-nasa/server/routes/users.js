@@ -3,9 +3,13 @@ var express = require('express');
 var router = express.Router();
 var userService = require('../services/user.services');
 
+
 // routes
 router.post('/authenticate', authenticate);
 router.post('/register', register);
+
+router.get('/verify/:token', verify);
+router.post('/reverify', reverify);
 router.get('/', getAll);
 router.get('/current', getCurrent);
 router.put('/:_id', update);
@@ -35,15 +39,16 @@ function authenticate(req, res) {
 function register(req, res) {
 
   console.log('users.js register req, req.headers', req.headers, req.body, req.path);
-  userService.create(req.body)
-    .then(function () {
+  userService.create(req.body, req)
+    .then(function (result) {
       console.log('THEN users.js, register, req',req.headers ,req.body);
-      res.sendStatus(200);
+      console.log(' users.js, register, result',result);
+      res.status(200).send({'message': result});
     })
     .catch(function (err) {
 
       console.log('ERR ',err);
-      res.status(400).send(err);
+      res.status(400).send({message: err});
     });
 }
 
@@ -102,6 +107,33 @@ function _delete(req, res) {
       res.sendStatus(200);
     })
     .catch(function (err) {
+      res.status(400).send(err);
+    });
+}
+
+
+function verify(req, res) {
+
+  return userService.verify(req,res)
+    .then(function (result) {
+      console.log('user.js. verify result: ', result);
+      res.status(200).send({body: result});
+    })
+    .catch(function (err) {
+      console.log('user.js. verify err: ', err);
+      res.status(400).send(err);
+    });
+}
+
+function reverify(req, res) {
+
+  return userService.reverify(req,res)
+    .then(function (result) {
+      console.log('user.js. reverify result: ', result);
+      res.status(200).send({body: result});
+    })
+    .catch(function (err) {
+      console.log('user.js. reverify err: ', err);
       res.status(400).send(err);
     });
 }

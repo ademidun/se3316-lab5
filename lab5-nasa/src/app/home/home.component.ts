@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public verifyMode = false;
+
+  constructor(public route: ActivatedRoute) {
+  }
 
   ngOnInit() {
+
+    const checkRoute = this.route.snapshot.params['id'];
+
+    if (checkRoute) {
+
+      this.verifyMode = true;
+    }
   }
+
   login() {
   }
 
