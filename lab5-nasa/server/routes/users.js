@@ -11,6 +11,8 @@ router.get('/current', getCurrent);
 router.put('/:_id', update);
 router.delete('/:_id', _delete);
 
+router.get('/:_id', getAdmin);
+
 module.exports = router;
 
 function authenticate(req, res) {
@@ -69,10 +71,25 @@ function getCurrent(req, res) {
     });
 }
 
+function getAdmin(req, res){
+//adminID = 5a1db7ab8190c0134048f789
+
+  userService.getById(req.params._id)
+    .then(function (users) {
+      console.log('getAdmin req.user, users', req.user, users);
+      res.send(users);
+    })
+    .catch(function (err) {
+
+      console.log('getAdmin err',err);
+      res.status(400).send(err);
+    });
+}
+
 function update(req, res) {
   userService.update(req.params._id, req.body)
     .then(function () {
-      res.sendStatus(200);
+      res.status(200).send(req.body);
     })
     .catch(function (err) {
       res.status(400).send(err);

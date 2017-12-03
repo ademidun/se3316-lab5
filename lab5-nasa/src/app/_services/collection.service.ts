@@ -88,10 +88,11 @@ export class CollectionService {
     return this.http.delete('collections/' + _id)
       .map(
         res => {
-          console.log('collection.update res:', res);
+          console.log('collection.delete res:', res);
           return res;
         }
-      );
+      )
+      .catch(err => err);
   }
 
 }

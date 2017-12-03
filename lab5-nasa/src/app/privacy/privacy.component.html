@@ -1,110 +1,87 @@
 <div class="container">
 
+  <div class="row" *ngIf="adminUser">
 
-<h2>Lab 5 Nasa Terms of Service</h2>
+    <h2>Lab 5 Nasa Terms of Service</h2>
 
-  <p>
-  Effective Date: November 14, 2017
+    <button *ngIf="isAdmin" (click)="editMode=!editMode" class="btn btn-link">Edit Policy</button>
 
-  IMPORTANT NOTICE: DISPUTES ABOUT THESE TERMS AND THE SERVICES PROVIDED BY LAB 5 NASA ARE SUBJECT TO BINDING ARBITRATION AND A
-  WAIVER OF CLASS ACTION RIGHTS AS DETAILED IN THE “MANDATORY ARBITRATION AND CLASS ACTION WAIVER” SECTION BELOW. These User
-  Terms of Service (the “Terms”) create a legal agreement between you (a “User”) and Lab 5 Nasa, Inc. (“Lab 5 Nasa,” “we,” “our”). These
-  Terms govern your use of the services, software and websites (together, the “Services”) provided by Lab 5 Nasa. By accessing or using
-  the Services, you acknowledge and agree that you have read, understand, and agree to be bound by these Terms, our Acceptable Use
-  Policy, and our Privacy Policy. If you do not agree to these Terms, then you have no right to access or use the Services.
-  Organizations or other third parties that have paid for a subscription to Lab 5 Nasa for use by their team (“Customers”) must
-  separately agree to our Subscriber Agreement or enter into a written agreement with us (in either case, “Subscriber Agreement”).
-   The updated Terms will take effect upon their posting and will
-  apply on a going-forward basis, unless otherwise provided in a notice to you, and except as provided in the Mandatory Arbitration and Class Action Waiver section of these Terms.
-  Your continued use of the Services after any such update constitutes your binding acceptance of such changes.
+    <div class="row">
+      <h4> Privacy Policy </h4>
 
-  1. ELIGIBILITY AND SCOPE
+      <mat-form-field *ngIf="editMode" style="width: 200em;">
+      <textarea matInput [(ngModel)]="adminUser.privacy_policy">
+      </textarea>
+      </mat-form-field>
+      <button (click)="savePolicyEdits()" class="btn btn-link">Save</button>
 
-  1.1 Eligibility. To use the Services you must be, and represent and warrant that you are, at least 13 years of age and competent to agree to these Terms. If you are agreeing to these Terms on behalf of an organization or entity, you represent and warrant that you are authorized to agree to these Terms on that organization or entity’s behalf and bind them to these Terms (in which case, the references to “you” and “your” in these Terms, except for in this sentence, refer to that organization or entity). If Lab 5 Nasa has previously prohibited you from accessing or using the Services, you are not permitted to access or use the Services.
+      <p>
+        {{adminUser.privacy_policy}}
+      </p>
 
-  1.2 Use Outside the United States of America. The Services are controlled and operated by Lab 5 Nasa from its offices in the United States of America. Lab 5 Nasa makes no representations that the Services are appropriate for use in other locations. Those who access or use the Services from other locations do so at their own risk and are responsible for compliance with local law. Lab 5 Nasa may offer services in other jurisdictions in which case a different version of these Terms may apply and will be presented to you on such services.
+    </div>
 
-  2. ACCOUNT REGISTRATION AND USE
 
-  2.1 Account Registration and Confidentiality. To access the Services, you must register for an Lab 5 Nasa account by providing an email address and creating a password, and providing us with other information that we request. You agree to provide us with accurate, complete, and current registration information about yourself. It is your responsibility to ensure that your password remains confidential and secure. By registering, you agree that you are fully responsible for all activities that occur under your user name and password. We may assume that any communications we receive under your account have been made by you.
+    <div class="row">
+      <h4> Security Policy </h4>
 
-  2.2 Unauthorized Account Use. You are responsible for notifying us at terms-questions@lab5nasa.com if you become aware of any unauthorized use of or access to your account. You understand and agree that we may require you to provide information that may be used to confirm your identity and help ensure the security of your account. Lab 5 Nasa will not be liable for any loss, damages, liability, expenses or attorneys’ fees that you may incur as a result of someone else using your password or account, either with or without your knowledge and/or authorization, and regardless of whether you have or have not advised us of such unauthorized use. You will be liable for losses, damages, liability, expenses and attorneys’ fees incurred by Lab 5 Nasa or a third party due to someone else using your account.
+      <mat-form-field *ngIf="editMode" style="width: 200em;">
+      <textarea matInput [(ngModel)]="adminUser.security_policy">
 
-</p>
+    </textarea>
+      </mat-form-field>
 
-<h2> Privacy Policy </h2>
+      <button (click)="savePolicyEdits()" class="btn btn-link">Save</button>
+      <p>
+        {{adminUser.security_policy}}
+      </p>
+    </div>
 
-  <p>
-    Effective Date: November 14, 2017
 
-    This Privacy Policy describes Lab 5 Nasa’s practices regarding the collection, use and disclosure of the information we collect from and about you when you use Lab 5 Nasa’s web-based and mobile applications and Lab 5 Nasa’s websites (including Lab 5 Nasa.com, wavelength.com, blog.Lab 5 Nasa.com, community.Lab 5 Nasa.com) that link to this Policy (the “Services”). By accessing or using the Services, you agree to this Privacy Policy, our Terms of Service, and our Acceptable Use Policy.
 
-    IF YOU DO NOT AGREE TO THIS PRIVACY POLICY, PLEASE DO NOT USE THE SERVICES.
+    <h2> DMCA Policy</h2>
 
-    This Privacy Policy contains the following sections:
+    <p>
 
-    The Information We Collect
-    How We Use Your Information
-    Cookies and Similar Technologies
-    Online Analytics and Advertising
-    How We Share and Disclose Your Information
-    Your Choices
-    Third Party Links and Services
-    Children’s Privacy
-    International Users
-    Your Rights
-    How Long We Store Your Information
-    Changes to Our Privacy Policy
-    How We Protect Your Information
-    California Privacy Rights
-    Lab 5 Nasa Contact Info
+      If you believe your copyright-protected work was posted on YouTube without authorization, you may submit a copyright infringement notification.
+      These requests should only be submitted by the copyright owner or an agent authorized to act on the owner’s behalf.
+      If you would like to report copyright infringement, please see
+      <a (click)="scrollTo('how-to-log-take-down-request')">how to log takedown requests</a>.
+    </p>
 
-    THE INFORMATION WE COLLECT
+  </div>
 
-    Lab 5 Nasa collects a variety of information that you provide directly to us. We process your information when necessary to provide you with the Services that you have requested when accepting our Terms of Service, or where we have obtained your prior consent, or where we have a legitimate interest to do so. For example, we may have a legitimate interest to process your information for security, testing, maintenance, and enhancement purposes of the Services we provide to you, or for analytics, research, and reporting purposes. Without your information, we cannot provide you with the Services you have requested or you may be limited in your use of the Services.
+  <div class="row">
 
-    1. Information You Provide to Us
+    <h5 id="how-to-log-take-down-request">How to Log TakeDown Request</h5>
 
-    Lab 5 Nasa collects information from you through:
+    <p>
+      In the  <a routerLink="/collections-list">collections list </a>page.
+      Enter the reason for your complaint and click the file complaint button.
+    </p>
 
-    Account and product registration and administration of your account
-    The Lab 5 Nasa Services that you use
-    Requests or questions you submit to us via forms or email (e.g., support forms, sales forms, user research participation forms)
-    Your communications and dealings with us
-    Your participation in Lab 5 Nasa sweepstakes, contests, or research studies
-    Uploads or posts to the Services
-    Requests for customer support and technical assistance
-    Information from and about you. The types of information we collect will depend upon the Services you use, how you use them, and what you choose to provide. The types of data we collect directly from you may include: - Name, address, telephone number and email address - Optional information, such as a photograph, that you elect to associate with your account (your “Profile Information”) - Log-in details and password, if you create an Lab 5 Nasa account - With your permission, calendar information stored on your mobile device - Any email requests or questions you submit to us - Demographic information such as your gender - User-generated content you post in public online Lab 5 Nasa forums (e.g., the Lab 5 Nasa Blog)
-  </p>
+    <h5>DMCA TakeDown Procedure</h5>
 
-  <h2> DMCA Policy</h2>
+    <ol>
+      <li>
+        In the collection detail page, accessed via the <a routerLink="/collections-list">collections list </a>page.
+        Enter the reason for your complaint and click the file complaint button.
+      </li>
 
-  <p>
 
-    We respect artist and content owner rights and we expect our users to do the same. It is our policy to respond to claims of infringement in compliance with the Digital Millennium Copyright Act of 1998 (“DMCA”). If you are a copyright owner, or authorized on behalf of one, and you believe that the copyrighted work has been copied in a way that constitutes copyright infringement that is taking place through the Service, please complete the following DMCA Notice and deliver it to our Designated DMCA Agent at the contact information provided below.
+      <li>
+        Users can dispute take-down complaints in the edit collection page via <a routerLink="/my-collections">my collections</a>.
+        Enter the reason for your dispute and click the File Dispute button.
+      </li>
 
-    You must provide the following information in writing in your DMCA Notice:
+      <li>
+        In the <a routerLink="/admin">admin</a> page.
+        You can review the complaints and disputes for each item,
+        you have the option to click Remove Takedown Block to re-grant access to the content.
+      </li>
 
-    Identify the copyrighted work that you claim has been infringed;
-    Identify the material that is claimed to be infringing and where it is located on the Service;
-    Provide reasonably sufficient information to permit us to contact you, such as your address, telephone number, and, e-mail address;
-    Provide a statement that you have a good faith belief that use of the material in the manner complained of is not authorized by the copyright owner, its agent, or law;
-    Provide a statement, made under penalty of perjury, that the above information is accurate, and that you are the copyright owner or are authorized to act on behalf of the owner; and
-    Provide an electronic or physical signature of a person authorized to act on behalf of the copyright owner;
-    Deliver the DMCA Notice, with the above information completed, to our Designated DMCA Agent at:
+    </ol>
 
-    DMCA Notice
-    Lab 5 Nasa, Inc.
-    1550 Bryant St., 8th floor
-    San Francisco, CA 94103
-    copyright@lab5nasa.com
-    UNDER FEDERAL LAW, IF YOU KNOWINGLY MISREPRESENT THAT ONLINE MATERIAL IS INFRINGING, YOU MAY BE SUBJECT TO CRIMINAL PROSECUTION FOR PERJURY AND CIVIL PENALTIES, INCLUDING MONETARY DAMAGES, COURT COSTS, AND ATTORNEYS’ FEES.
-
-    Please be aware that this procedure is only for notifying us that your copyrighted material has been infringed. The preceding requirements are intended to comply with our rights and obligations under the DMCA, including 17 U.S.C. §512(c), but do not constitute legal advice.
-
-    In accordance with the DMCA and other applicable law, we have adopted a policy of terminating, in appropriate circumstances, users who are deemed to be repeat infringers. We may also limit access to the Service and/or terminate the accounts of any users who infringe any intellectual property rights of others, whether or not there is any repeat infringement.
-
-    For questions about these or any Lab 5 Nasa terms or policies, email us at terms-questions@lab5nasa.com.
-  </p>
+  </div>
 
 </div>

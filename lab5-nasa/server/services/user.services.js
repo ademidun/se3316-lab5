@@ -26,14 +26,8 @@ function authenticate(email, password) {
 
     if (user && bcrypt.compareSync(password, user.hash)) {
       // authentication successful
-      deferred.resolve({
-        _id: user._id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        collections: user.collections,
-        token: jwt.sign({ sub: user._id }, config.secret)
-      });
+      user.token = jwt.sign({ sub: user._id }, config.secret);
+      deferred.resolve(user);
     } else {
       // authentication failed
       deferred.resolve();
@@ -64,6 +58,7 @@ function getById(_id) {
   var deferred = Q.defer();
 
   db.users.findById(_id, function (err, user) {
+    console.log('users.findById user:', user);
     if (err) deferred.reject(err.name + ': ' + err.message);
 
     if (user) {
@@ -142,25 +137,19 @@ function update(_id, userParam) {
 
   function updateUser() {
     // fields to update
-    var set = {
-      firstName: userParam.firstName,
-      lastName: userParam.lastName,
-      email: userParam.email,
-      token: jwt.sign({ sub: user._id }, config.secret)
-    };
 
-    if (userParam.collections){
-      set['collections']= userParam.collections;
-    }
+
+    userParam['token'] = jwt.sign({ sub: userParam._id }, config.secret);
+
 
     // update password if it was entered
     if (userParam.password) {
-      set.hash = bcrypt.hashSync(userParam.password, 10);
+      userParam.hash = bcrypt.hashSync(userParam.password, 10);
     }
-
+    userParam._id = mongo.helper.toObjectID(_id);
     db.users.update(
       { _id: mongo.helper.toObjectID(_id) },
-      { $set: set },
+      { $set: userParam },
       function (err, doc) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 

@@ -29,7 +29,7 @@ export class AdminComponent implements OnInit {
 
     this.currentUser = this.authService.getUser();
 
-    if (this.currentUser._id !== '5a1db7ab8190c0134048f789') {
+    if (this.currentUser && this.currentUser._id !== '5a1db7ab8190c0134048f789') {
       this.snackBar.open('Unauthorized user, redirecting...:', '', {
         duration: 3000
       });
@@ -43,7 +43,7 @@ export class AdminComponent implements OnInit {
         res => {
           this.adminCollections = res;
         }
-      )
+      );
   }
 
   removeBlock(index) {

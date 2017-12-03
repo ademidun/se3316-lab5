@@ -12,6 +12,7 @@
         <img *ngIf="post.images && post.images.length>0 &&!post.dmca_block" class="card-img-top" [src]="post.images[0].href"
                                                          alt="Image Preview">
         <p *ngIf="post.dmca_block"> This collection has been blocked by DMCA</p>
+        <p *ngIf="post.dmca_block"> <strong>Reason: </strong>{{post.dmca_message}}</p>
         <p class="card-text">{{post.description}}</p>
 
         <a [routerLink]="['/edit-collection', post._id]" class="btn btn-link">Edit Collection</a>

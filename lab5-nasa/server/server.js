@@ -35,7 +35,7 @@ app.use('',expressJwt({
     }
     return null;
   }
-}).unless({ path: ['/users/authenticate', '/users/register','/collections', /\/collections\/.+/] }));
+}).unless({ path: ['/users/authenticate', '/users/register','/users','/collections', /\/collections\/.+/] }));
 
 app.use('/users', users);
 

@@ -60,6 +60,10 @@ export class CollectionsListComponent implements OnInit {
     }
 
 
+    // remove the null values from array
+    this.publicCollections[index].ratings.filter(x => x);
+
+
     // quick fix for a bug because some rating_averages are already null in the database
 
     if (!this.publicCollections[index].rating_average || this.publicCollections[index].rating_average <= 1) {
@@ -70,6 +74,7 @@ export class CollectionsListComponent implements OnInit {
 
     let alreadyRated = false;
     let prevRatingIndex = 0;
+
     for (; prevRatingIndex < this.publicCollections[index].ratings.length; prevRatingIndex++) {
       const elem = this.publicCollections[index].ratings[prevRatingIndex];
 

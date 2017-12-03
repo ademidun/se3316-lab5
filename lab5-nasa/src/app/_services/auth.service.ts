@@ -38,8 +38,15 @@ export class AuthService {
 
   getById(_id: string) {
     return this.http.get('users/' + _id)
-      .map((response: Response) => response.json())
-      .catch(err => err);
+      .map(res => {
+        console.log('auth.service getById res:', res);
+        return res;
+      })
+      .catch(err => {
+
+        console.log('auth.service getById res:', err);
+        return err;
+      });
   }
 
   create(user: User) {
@@ -50,6 +57,7 @@ export class AuthService {
   }
 
   update(user: User) {
+    console.log('Just called auth.service.update user:', user);
     return this.http.put('users/' + user._id, user)
       .map(
         res => {
@@ -57,7 +65,11 @@ export class AuthService {
           localStorage.setItem('currentUser', JSON.stringify(res));
           return res;
         }
-      );
+      )
+      .catch(err => {
+        console.log('AuthService.update err:', err);
+        return err;
+      });
   }
 
   delete(_id: string) {

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../_services/auth.service';
 import {User} from '../_models/user';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit {
   loading = false;
 
   constructor(private router: Router,
-              private authService: AuthService) {
+              private authService: AuthService,
+              public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -23,6 +25,8 @@ export class RegisterComponent implements OnInit {
   register() {
     this.loading = true;
     this.model.collections = [];
+
+
     this.authService.create(this.model)
       .subscribe(
         res => {
@@ -32,6 +36,10 @@ export class RegisterComponent implements OnInit {
         },
         error => {
           this.loading = false;
+          console.log('authService.create error', error);
+          this.snackBar.open('Invalid information:' + error.message, '', {
+            duration: 3000
+          });
         });
   }
 }

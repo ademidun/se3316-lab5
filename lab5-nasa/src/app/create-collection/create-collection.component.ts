@@ -56,9 +56,11 @@ export class CreateCollectionComponent implements OnInit {
 
     this.collectionService.createCollection(this.imageCollection)
       .subscribe(
-        (res: any) => {
+        res => {
           console.log('collectionService.createCollection res', res);
-          this.currentUser.collections.push(res._id);
+          this.currentUser.collections.push((<any>res)._id);
+
+
           console.log('create collection updateUser this.currentUser:', this.currentUser);
           this.authService.update(this.currentUser)
             .subscribe(
@@ -95,6 +97,14 @@ export class CreateCollectionComponent implements OnInit {
         res => {
           console.log('deleted collection res: ', res);
           this.snackBar.open('Deleted Collection:' + res, '', {
+            duration: 3000
+          });
+
+          setTimeout(
+            this.router.navigate(['']), 3000);
+        },
+        err => {
+          this.snackBar.open('Deleted Collection:', '', {
             duration: 3000
           });
 
