@@ -40,9 +40,12 @@ export class CollectionsListComponent implements OnInit {
               this.publicCollections[i].rating_average = 5;
             }
           }
+          // sort collections by rating average descending
           this.publicCollections.sort(function (collection1, collection2) {
             return collection2.rating_average - collection1.rating_average;
           });
+
+          this.publicCollections = this.publicCollections.slice(0, 10);
 
 
         },

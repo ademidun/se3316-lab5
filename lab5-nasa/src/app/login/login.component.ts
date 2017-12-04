@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../_services/auth.service';
 import {User} from '../_models/user';
@@ -13,13 +13,15 @@ export class LoginComponent implements OnInit {
 
   model = new User();
   loading = false;
+  isLoggedIn = false;
   returnUrl: string;
   myJson = JSON;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private authenticationService: AuthService,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar,
+              private cdr: ChangeDetectorRef) {
 
   }
 
@@ -43,12 +45,15 @@ export class LoginComponent implements OnInit {
             // } else {
             //   this.router.navigate(['my-collections']);
             // }
-            this.router.navigate(['/my-collections']);
+            this.router.navigate(['my-collections']);
+            this.cdr.detectChanges();
+            this.isLoggedIn = true;
+
           },
-          (error: any) => {
+          error => {
             this.loading = false;
             console.log('login.component.authenticationService.login error', error);
-            this.snackBar.open('Incorrect login credentials:' + error.message, '', {
+            this.snackBar.open('Incorrect login credentials:', '', {
               duration: 3000
             });
           });

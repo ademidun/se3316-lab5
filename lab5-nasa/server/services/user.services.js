@@ -280,10 +280,10 @@ function _delete(_id) {
 
   db.users.remove(
     {_id: mongo.helper.toObjectID(_id)},
-    function (err) {
+    function (err, doc) {
       if (err) deferred.reject(err.name + ': ' + err.message);
 
-      deferred.resolve();
+      deferred.resolve(doc);
     });
 
   return deferred.promise;

@@ -35,6 +35,7 @@ export class CreateCollectionComponent implements OnInit {
 
     const collectionId = this.route.snapshot.params['id'];
 
+    // this componenet can either edit existing collections or create new ones
     if (collectionId) {
       this.editMode = true;
       this.collectionService.getById(collectionId)
@@ -101,7 +102,7 @@ export class CreateCollectionComponent implements OnInit {
           });
 
           setTimeout(
-            this.router.navigate(['']), 3000);
+            this.router.navigate(['/my-collections']), 3000);
         },
         err => {
           this.snackBar.open('Deleted Collection:', '', {
@@ -109,7 +110,7 @@ export class CreateCollectionComponent implements OnInit {
           });
 
           setTimeout(
-            this.router.navigate(['']), 3250);
+            this.router.navigate(['/my-collections']), 3250);
         }
       );
   }

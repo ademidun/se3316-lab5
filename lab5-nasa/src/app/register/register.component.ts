@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
 
   model = new User();
   loading = false;
+  isRegistered;
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -32,12 +33,13 @@ export class RegisterComponent implements OnInit {
         res => {
           this.loading = false;
           console.log('register.component.successful account creation', res);
-          this.router.navigate(['nasa-collection']);
+          this.isRegistered = (<any>res).message;
+          // this.router.navigate(['nasa-collection']);
         },
         error => {
           this.loading = false;
           console.log('authService.create error', error);
-          this.snackBar.open('Invalid information:' + error.message, '', {
+          this.snackBar.open('Email is already taken', '', {
             duration: 3000
           });
         });

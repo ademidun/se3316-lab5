@@ -21,8 +21,8 @@ function create(req, res) {
 
   console.log('collections.js register req, req.headers', req.path);
   collectionService.create(req.body)
-    .then(function () {
-      res.sendStatus(200);
+    .then(function (result) {
+      res.status(200).send(result);
     })
     .catch(function (err) {
 

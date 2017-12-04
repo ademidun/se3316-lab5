@@ -31,6 +31,7 @@ function create(collectionParam) {
     function (err, doc) {
       if (err) deferred.reject(err.name + ': ' + err.message);
 
+      console.log('collection.create doc', doc);
       deferred.resolve(doc);
     });
 

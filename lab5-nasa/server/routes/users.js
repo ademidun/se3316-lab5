@@ -25,14 +25,14 @@ function authenticate(req, res) {
       if (user) {
         // authentication successful
         console.log('users.js, succesuful authenticate,',user);
-        res.status(200).send(user);
+        res.status(200).send({message:user});
       } else {
         // authentication failed
-        res.status(400).send('email or password is incorrect');
+        res.status(400).send({message:'email or password is incorrect'});
       }
     })
     .catch(function (err) {
-      res.status(400).send(err);
+      res.status(400).send({message:err});
     });
 }
 
@@ -47,7 +47,7 @@ function register(req, res) {
     })
     .catch(function (err) {
 
-      console.log('ERR ',err);
+      console.log('ERR register ',err);
       res.status(400).send({message: err});
     });
 }
@@ -103,8 +103,8 @@ function update(req, res) {
 
 function _delete(req, res) {
   userService.delete(req.params._id)
-    .then(function () {
-      res.sendStatus(200);
+    .then(function (result) {
+      res.status(200).send(result);
     })
     .catch(function (err) {
       res.status(400).send(err);

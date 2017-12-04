@@ -9,13 +9,13 @@
     <div class="row">
       <h4> Privacy Policy </h4>
 
-      <mat-form-field *ngIf="editMode" style="width: 200em;">
+      <mat-form-field *ngIf="editMode" style="width: 40em;">
       <textarea matInput [(ngModel)]="adminUser.privacy_policy">
       </textarea>
       </mat-form-field>
-      <button (click)="savePolicyEdits()" class="btn btn-link">Save</button>
+      <button *ngIf="isAdmin" (click)="savePolicyEdits()" class="btn btn-link">Save</button>
 
-      <p>
+      <p style="white-space: pre-line">
         {{adminUser.privacy_policy}}
       </p>
 
@@ -25,29 +25,35 @@
     <div class="row">
       <h4> Security Policy </h4>
 
-      <mat-form-field *ngIf="editMode" style="width: 200em;">
+      <mat-form-field *ngIf="editMode" style="width: 40em;">
       <textarea matInput [(ngModel)]="adminUser.security_policy">
 
     </textarea>
       </mat-form-field>
 
-      <button (click)="savePolicyEdits()" class="btn btn-link">Save</button>
-      <p>
-        {{adminUser.security_policy}}
+      <button *ngIf="isAdmin" (click)="savePolicyEdits()" class="btn btn-link">Save</button>
+      <p style="white-space: pre-line">
       </p>
     </div>
 
 
+    <div class="row">
+    <h4> DMCA Policy</h4>
 
-    <h2> DMCA Policy</h2>
 
-    <p>
+    <mat-form-field *ngIf="editMode" style="width: 40em;">
+      <textarea matInput [(ngModel)]="adminUser.dmca_policy">
 
-      If you believe your copyright-protected work was posted on YouTube without authorization, you may submit a copyright infringement notification.
-      These requests should only be submitted by the copyright owner or an agent authorized to act on the owner’s behalf.
-      If you would like to report copyright infringement, please see
-      <a (click)="scrollTo('how-to-log-take-down-request')">how to log takedown requests</a>.
-    </p>
+    </textarea>
+    </mat-form-field>
+
+    <p style="white-space: pre-line">
+
+      {{adminUser.dmca_policy}}
+
+    </p> <a  href="javascript:undefined" (click)="scrollTo('how-to-log-take-down-request')">How to log takedown requests</a>.
+    <button *ngIf="isAdmin" (click)="savePolicyEdits()" class="btn btn-link">Save</button>
+    </div>
 
   </div>
 

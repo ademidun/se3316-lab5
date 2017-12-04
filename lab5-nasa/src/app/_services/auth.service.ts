@@ -15,10 +15,10 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http.post(this.serverApi + 'users/authenticate', {email: email, password: password})
-      .map((response: HttpResponse<any>) => {
+      .map(response => {
         // login successful if there's a jwt token in the response
         console.log('auth.service.login, response', response);
-        const user = <any>response;
+        const user = (<any>response).message;
         if (user && user.token) {
 
           console.log('auth.service.login, user.token', user.token);
@@ -52,8 +52,16 @@ export class AuthService {
   create(user: User) {
     console.log('auth.service.create', user);
     return this.http.post('users/register', user)
-      .map(res => res)
-      .catch(err => err);
+      .map(res => {
+
+        console.log('auth.service.create res', res);
+        return res;
+      })
+      .catch(err => {
+
+        console.log('auth.service.create err', err);
+        return err;
+      });
   }
 
   update(user: User) {

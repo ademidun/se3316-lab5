@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {CollectionService} from '../_services/collection.service';
 import {AuthService} from '../_services/auth.service';
 import {User} from '../_models/user';
@@ -19,7 +19,8 @@ export class MyCollectionsComponent implements OnInit {
   constructor(public authService: AuthService,
               public collectionService: CollectionService,
               public router: Router,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar,
+              public cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -31,6 +32,8 @@ export class MyCollectionsComponent implements OnInit {
         duration: 3000
       });
 
+      // prevent expressionchanged after its been checked error
+      this.cdr.detectChanges();
       setTimeout(
         this.router.navigate(['']), 3250);
 
